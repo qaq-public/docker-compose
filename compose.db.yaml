@@ -1,0 +1,16 @@
+name: qaq-db
+services:
+  mysql-svc:
+    image: mysql:8.1
+    privileged: true
+    command: --default-authentication-plugin=mysql_native_password --sort-buffer-size=1048576 --max-connections=1024 --max_allowed_packet=1024M --wait_timeout=86400 --interactive_timeout=86400
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: qard123@qaq
+      TZ: Asia/Shanghai
+    volumes:
+      - ./mysql/data:/var/lib/mysql
+      - ./mysql/conf:/etc/mysql/conf.d
+      - ./mysql/log:/var/log/mysql
