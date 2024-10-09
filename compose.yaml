@@ -2,7 +2,7 @@ name: qaq
 
 networks:
   qaq-network:
-    driver: bridge
+    external: true
 
 services:
   gateway-api:

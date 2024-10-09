@@ -5,5 +5,6 @@
 # generate rsa key [how to generate](https://github.com/blacklee123/login)
 cp .env.sample .env
 # edit .env set the correct value
+docker network create qaq-network
 docker compose up
 ```
