@@ -18,6 +18,9 @@ services:
       - RSA_PUBLICKEY=${RSA_PUBLICKEY:?error}
     networks:
       - qaq-network
+    depends_on:
+      - uniauth-api
+
   uniauth-api:
     image: blacklee123/uniauth-api
     restart: always
@@ -37,6 +40,7 @@ services:
       - QAQ_HOST=${QAQ_HOST:?error}
     networks:
       - qaq-network
+
   uniauth-web:
     image: blacklee123/uniauth-web
     restart: always
@@ -46,6 +50,7 @@ services:
       - ./uniauth-web/navbar.json:/usr/share/nginx/html/navbar.json
     networks:
       - qaq-network
+
   docs:
     image: blacklee123/docs
     restart: always
@@ -53,6 +58,7 @@ services:
       - ./docs/default.conf:/etc/nginx/conf.d/default.conf
     networks:
       - qaq-network
+
   upload:
     image: blacklee123/upload
     restart: always
@@ -80,6 +86,7 @@ services:
       - QAQ_HOST=${QAQ_HOST:?error}
     networks:
       - qaq-network
+
   static:
     image: blacklee123/static
     restart: always
@@ -90,6 +97,7 @@ services:
       - ./static/data:/app/data
     networks:
       - qaq-network
+
   nginx:
     image: nginx
     restart: always
@@ -101,3 +109,9 @@ services:
       - ./nginx/ssl:/etc/nginx/ssl
     networks:
       - qaq-network
+    depends_on:
+      - uniauth-web
+      - uniauth-api
+      - docs
+      - static
+      - gateway-api
